@@ -1,0 +1,23 @@
+$themeC: #ea6f5a;
+$textGray: #969696;
+$bgGray: #eee;
+$borderC: 1px solid #f0f0f0;
+@mixin pr {
+  position: relative;
+}
+@mixin pa($t, $l) {
+  position: absolute;
+  top: $t;
+  left: $l;
+}
+@mixin pf($t, $l) {
+  position: fixed;
+  top: $t;
+  left: $l;
+}
+@mixin flex($a, $b, $c) {
+  display:flex;
+  align-items: $a;
+  justify-content: $b;
+  flex: $c
+}

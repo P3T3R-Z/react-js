@@ -1,10 +1,5 @@
-import { injectGlobal } from "styled-components";
+//全局css
+import {createGlobalStyle} from 'styled-components';
+export const GlobalStyled = createGlobalStyle`
 
-injectGlobal`
-  body{
-    margin:0;
-    padding:0;
-    font-family: sans-serif;
-    background: #fff
-  }
-`
+`;

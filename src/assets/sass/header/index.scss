@@ -1,0 +1,33 @@
+@import "../params.scss";
+
+$navheight:56px;
+.navBox{
+    background:#fff;
+    height: $navheight;
+    border: $borderC;
+    &:after{
+        display:block;
+        content:'';
+        clear: both;
+    }
+    .nav_left{
+        float: left;
+        height: $navheight;
+        @include flex(center, flex-start, unset);
+        
+        a.logo{
+            height: $navheight;
+            width:100px;
+            img{
+                height: 100%
+            }
+        }
+        span.navtext{
+            width: 50px;
+            height: $navheight;
+            line-height: $navheight;
+        }
+    }
+
+    
+}
