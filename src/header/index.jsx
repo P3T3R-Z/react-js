@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from "react";
+//用于组件与store连接
+import { connect } from "react-redux";
+
 import logo from "../assets/image/logo.png";
 import "../assets/icon/iconfont.css";
 import "../assets/sass/header/index.scss";
 import { CSSTransition } from "react-transition-group";
+
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      focus: false
-    };
+    this.state = {}
   }
   render() {
     return (
@@ -23,16 +25,16 @@ class Header extends Component {
           <a className="navtext" href="/">
             下载App
           </a>
-          <CSSTransition in={this.state.focus} timeout={200} classNames="slide">
+          <CSSTransition in={this.props.focus} timeout={200} classNames="slide">
             <div className="searchbox">
               <input
                 placeholder="搜索"
                 type="text"
                 className="navSearch"
-                onFocus={this.searchFocus}
-                onBlur={this.searchBlur}
+                onFocus={this.props.searchFocus}
+                onBlur={this.props.searchBlur}
               />
-              <i className={`iconfont ${this.state.focus ? "on" : ""}`}>
+              <i className={`iconfont ${this.props.focus ? "on" : ""}`}>
                 &#xe602;
               </i>
             </div>
@@ -51,20 +53,31 @@ class Header extends Component {
       </Fragment>
     );
   }
-  searchFocus = () => {
-    this.setState(() => {
-      return {
-        focus: true
-      };
-    });
-  };
-  searchBlur = () => {
-    this.setState(() => {
-      return {
-        focus: false
-      };
-    });
-  };
+
 }
 
-export default Header;
+//将store数据映射到组件state, store指store数据
+const mapStateToProps = (store) =>{
+  return {
+   focus: store.header.focus
+  }
+}
+// 组件方法调用store.dispatch方法
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    searchFocus (){
+      const action={
+        type:'search_focus'
+      }
+      dispatch(action)
+    },
+    searchBlur: function(){
+      const action = {
+        type: 'search_blur'
+      }
+      dispatch(action)
+    }
+  }
+}
+//组件与store连接
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
