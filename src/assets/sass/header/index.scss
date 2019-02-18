@@ -2,32 +2,129 @@
 
 $navheight:56px;
 .navBox{
-    background:#fff;
     height: $navheight;
-    border: $borderC;
+    border-bottom: $borderC;
     &:after{
-        display:block;
-        content:'';
-        clear: both;
+        content:"";
+        display: block;
+        clear: both
     }
-    .nav_left{
-        float: left;
-        height: $navheight;
-        @include flex(center, flex-start, unset);
-        
-        a.logo{
-            height: $navheight;
-            width:100px;
-            img{
-                height: 100%
+    a.logo{
+        width:100px;
+        height:$navheight;
+        float:left;
+        margin-right:10px;
+        img{
+            height:100%
+        }
+    }
+    .rightbox {
+        height:$navheight;
+        line-height: $navheight;
+        float:right;
+        @include flex(center, center, unset);
+        a{
+            margin-right:20px;
+            font-size: 18px;
+            height:36px;
+            line-height:36px;
+            text-align: center;
+            padding:0 20px;
+            border-radius: 18px;
+            &.nocolor{
+                border:1px solid $themeC;
+                color:$themeC;
+            }
+            &.hascolor{
+                background: $themeC;
+                color:#fff
+            }
+            span{
+              color:#fff  
             }
         }
-        span.navtext{
-            width: 50px;
-            height: $navheight;
-            line-height: $navheight;
+        .changefont{
+            margin-right:20px;
+            color:$textGray;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .login{
+            margin-right:20px;
+            color:$textGray;
+            cursor: pointer;
         }
     }
+    a.navtext{
+        float: left;
+        height:$navheight;
+        padding: 0 20px;
+        font-size: 17px;
+        line-height: $navheight;
+        &.on{
+            &:hover{
+                background: unset;
+            }
+            color:$themeC;
+        }
+        &:hover{
+            background:$bgGray;
+        }
+    }
+    .searchbox{
+        @include pr;
+        float: left;
+        margin-left:20px;
+        background:$bgGray;
+        border-radius: 19px;
+        height: 38px;
+        margin-top:9px;
+        padding:0 40px 0 20px;
+        width: 110px;
+        .navSearch{
+            outline:none;
+            border:none;
+            height: 38px;
+            line-height:38px;
+            background:unset;
+            width: 100%;
+        }
+        i.iconfont{
+            height:30px;
+            width: 30px;
+            border-radius: 50%;
+            @include pa(4px, unset);
+            right:4px;
+            line-height: 30px;
+            text-align: center;
+            color:$textGray;
+            cursor: pointer;
+            &.on{
+                background:#969696;
+                color:#fff
+            }
+        }
+    }
+}
 
-    
+
+.slide-enter{
+    width: 110px !important;
+}
+.slide-enter-active{
+    transition: all 200ms ease-out;
+    width: 190px !important;
+}
+.slide-enter-done{
+    width: 190px !important;
+}
+.slide-exit{
+    width: 190px !important;
+}
+.slide-exit-active{
+    transition: all 200ms ease-out;
+    width: 110px !important;
+}
+.slide-exit-done{
+    width: 110px !important;
 }
