@@ -54,19 +54,45 @@ class Header extends Component {
     );
   }
   searchBox = show => {
-    const { recommendList } = this.props;
-    if (show) {
+    const {
+      recommendList,
+      mouseEnter,
+      mouseStatus,
+      mouseLeave,
+      page,
+      totalpage,
+      changeListShow
+    } = this.props;
+    
+    //recommendList为immutable对象
+    let jslist = recommendList.toJS();                               //immutable对象转js对象
+
+    let pagelist = [];
+    if(jslist.length){
+      for (let i = (page - 1) * 10; i < page * 10; i++) {
+        pagelist.push(<span key={jslist[i]}>{jslist[i]}</span>);
+      }
+    }
+
+    if (show || mouseStatus) {
       return (
-        <div className="recommend_box">
+        <div
+          className="recommend_box"
+          onMouseEnter={mouseEnter}
+          onMouseLeave={mouseLeave}
+        >
           <div className="title">
             <span>热门搜索</span>
-            <span className="iconfont">&#xe60a;换一换</span>
+            <span
+              className="iconfont"
+              onClick={() => {
+                changeListShow(page, totalpage);
+              }}
+            >
+              &#xe60a;换一换
+            </span>
           </div>
-          <div className="recommendTip">
-            {recommendList.map((item, index) => {
-              return <span key={item + index}>{item}</span>;
-            })}
-          </div>
+          <div className="recommendTip">{pagelist}</div>
         </div>
       );
     } else {
@@ -83,8 +109,10 @@ const mapStateToProps = store => {
     focus: store.get("header").get("focus"), //使用redux-immutable 后reducer也变成了immutable对象
     //focus: store.getIn(['header', 'focus'])  //immutable另外的api取法,与上一个结果相同
 
-    //recommendList:store.header.recommendList
-    recommendList: store.get("header").get("recommendList")
+    recommendList: store.get("header").get("recommendList"),
+    mouseStatus: store.getIn(["header", "mouseStatus"]),
+    page: store.getIn(["header", "page"]),
+    totalpage: store.getIn(["header", "totalpage"])
   };
 };
 // 组件方法调用store.dispatch方法
@@ -96,6 +124,21 @@ const mapDispatchToProps = dispatch => {
     },
     searchBlur: function() {
       dispatch(actionCreators.seach_blur());
+    },
+    mouseEnter: function() {
+      dispatch(actionCreators.mouseEnter());
+    },
+    mouseLeave: function() {
+      dispatch(actionCreators.mouseLeave());
+    },
+    changeListShow: function(page, totalpage) {
+      //console.log(pages, totalpage)
+      if(page < totalpage){
+        dispatch(actionCreators.changeListShow(page+1));
+      } else {
+        dispatch(actionCreators.changeListShow(1));
+      }
+      
     }
   };
 };

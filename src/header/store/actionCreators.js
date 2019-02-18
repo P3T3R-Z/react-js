@@ -16,7 +16,8 @@ export const seach_blur = ()=>{
 const changeRecommendList=(data)=>{
     return {
         type: actionTypes.changeRecommendList,
-        data: data
+        data: data,
+        pages: Math.ceil(data.length/10)
     }
 }
 
@@ -36,3 +37,21 @@ export const getRecommendlist = ()=>{
    }
 }
 
+export const mouseEnter=()=>{
+    return {
+        type: actionTypes.mouseEnter
+    }
+}
+
+export const mouseLeave=()=>{
+    return {
+        type: actionTypes.mouseLeave
+    }
+}
+
+export const changeListShow=(page)=>{
+    return {
+        type: actionTypes.changeListShow,
+        page
+    }
+}

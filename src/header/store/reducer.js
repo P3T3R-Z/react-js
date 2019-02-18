@@ -8,12 +8,13 @@ import { fromJS } from "immutable";
 //生成immutable对象, 使state变成immutable对象,子集页是immutable对象, 赋值时需要对应immutable对象
 const defaultState = fromJS({
   focus: false,
-  recommendList: []
+  recommendList: [],
+  mouseStatus: false,
+  page: 1,
+  totalpage: 1
 });
 
-
 export default (state = defaultState, action) => {
-  
   switch (action.type) {
     case actionTypes.search_focus:
       return state.set("focus", true); //immutable对象赋值
@@ -22,15 +23,29 @@ export default (state = defaultState, action) => {
     case actionTypes.changeRecommendList:
       
       //返回的action.data数组是js对象,需要改成immutable对象赋值
-      return state.set("recommendList", fromJS(action.data));
+     // return state.set("recommendList", fromJS(action.data)).set('totalpage', action.pages);
 
-      //不使用immutable用法: 需要深度拷贝对象后赋值, return新的对象
-      // let newList = JSON.parse(JSON.stringify(state));
-      //  action.data.forEach(item=>{
-      //   newList.recommendList.push(item)
-      //  })
-      
-      // return newList
+     //多次set
+      return state.merge({
+        "recommendList": fromJS(action.data),
+        'totalpage': action.page
+      })
+
+
+    //不使用immutable用法: 需要深度拷贝对象后赋值, return新的对象
+    // let newList = JSON.parse(JSON.stringify(state));
+    //  action.data.forEach(item=>{
+    //   newList.recommendList.push(item)
+    //  })
+
+    // return newList
+    case actionTypes.mouseEnter:
+      return state.set("mouseStatus", true);
+    case actionTypes.mouseLeave:
+      return state.set("mouseStatus", false);
+    case actionTypes.changeListShow:
+      console.log(action)
+      return state.set("page", action.page)
     default:
       return state;
   }
