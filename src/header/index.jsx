@@ -59,7 +59,9 @@ class Header extends Component {
 //将store数据映射到组件state, store指store数据
 const mapStateToProps = (store) =>{
   return {
-   focus: store.header.get('focus') //immutable对象取属性
+   //focus: store.header.get('focus') //immutable对象取属性 -----没使用redux-immutable时的取法
+   focus: store.get('header').get('focus')  //使用redux-immutable  
+   //focus: store.getIn(['header', 'focus'])  //immutable另外的api取法,与上一个结果相同
   }
 }
 // 组件方法调用store.dispatch方法
