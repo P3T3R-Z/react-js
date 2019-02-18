@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./assets/sass/base.css";
 import Header from "./header";
-//方便redux与react协作插件
+//方便redux与react协作插件,使用该插件后不需要使用store.getState, store.subscribe等api
 import { Provider } from "react-redux";
 import store from "./store"
 class App extends Component {

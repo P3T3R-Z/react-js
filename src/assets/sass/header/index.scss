@@ -1,130 +1,183 @@
 @import "../params.scss";
 
-$navheight:56px;
-.navBox{
+$navheight: 56px;
+.navBox {
+  height: $navheight;
+  border-bottom: $borderC;
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  a.logo {
+    width: 100px;
     height: $navheight;
-    border-bottom: $borderC;
-    &:after{
-        content:"";
-        display: block;
-        clear: both
+    float: left;
+    margin-right: 10px;
+    img {
+      height: 100%;
     }
-    a.logo{
-        width:100px;
-        height:$navheight;
-        float:left;
-        margin-right:10px;
-        img{
-            height:100%
-        }
+  }
+  .rightbox {
+    height: $navheight;
+    line-height: $navheight;
+    float: right;
+    @include flex(center, center, unset);
+    a {
+      margin-right: 20px;
+      font-size: 18px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      padding: 0 20px;
+      border-radius: 18px;
+      &.nocolor {
+        border: 1px solid $themeC;
+        color: $themeC;
+      }
+      &.hascolor {
+        background: $themeC;
+        color: #fff;
+      }
+      span {
+        color: #fff;
+      }
     }
-    .rightbox {
-        height:$navheight;
-        line-height: $navheight;
-        float:right;
-        @include flex(center, center, unset);
-        a{
-            margin-right:20px;
-            font-size: 18px;
-            height:36px;
-            line-height:36px;
-            text-align: center;
-            padding:0 20px;
-            border-radius: 18px;
-            &.nocolor{
-                border:1px solid $themeC;
-                color:$themeC;
-            }
-            &.hascolor{
-                background: $themeC;
-                color:#fff
-            }
-            span{
-              color:#fff  
-            }
-        }
-        .changefont{
-            margin-right:20px;
-            color:$textGray;
-            font-size: 22px;
-            cursor: pointer;
-        }
-        .login{
-            margin-right:20px;
-            color:$textGray;
-            cursor: pointer;
-        }
+    .changefont {
+      margin-right: 20px;
+      color: $textGray;
+      font-size: 22px;
+      cursor: pointer;
     }
-    a.navtext{
-        float: left;
-        height:$navheight;
-        padding: 0 20px;
-        font-size: 17px;
-        line-height: $navheight;
-        &.on{
-            &:hover{
-                background: unset;
-            }
-            color:$themeC;
-        }
-        &:hover{
-            background:$bgGray;
-        }
+    .login {
+      margin-right: 20px;
+      color: $textGray;
+      cursor: pointer;
     }
-    .searchbox{
-        @include pr;
-        float: left;
-        margin-left:20px;
-        background:$bgGray;
-        border-radius: 19px;
-        height: 38px;
-        margin-top:9px;
-        padding:0 40px 0 20px;
-        width: 110px;
-        .navSearch{
-            outline:none;
-            border:none;
-            height: 38px;
-            line-height:38px;
-            background:unset;
-            width: 100%;
-        }
-        i.iconfont{
-            height:30px;
-            width: 30px;
-            border-radius: 50%;
-            @include pa(4px, unset);
-            right:4px;
-            line-height: 30px;
-            text-align: center;
-            color:$textGray;
-            cursor: pointer;
-            &.on{
-                background:#969696;
-                color:#fff
-            }
-        }
+  }
+  a.navtext {
+    float: left;
+    height: $navheight;
+    padding: 0 20px;
+    font-size: 17px;
+    line-height: $navheight;
+    &.on {
+      &:hover {
+        background: unset;
+      }
+      color: $themeC;
     }
+    &:hover {
+      background: $bgGray;
+    }
+  }
+  .searchbox {
+    @include pr;
+    float: left;
+    margin-left: 20px;
+    background: $bgGray;
+    border-radius: 19px;
+    height: 38px;
+    margin-top: 9px;
+    padding: 0 40px 0 20px;
+    width: 110px;
+    .navSearch {
+      outline: none;
+      border: none;
+      height: 38px;
+      line-height: 38px;
+      background: unset;
+      width: 100%;
+    }
+    i.iconfont {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      @include pa(4px, unset);
+      right: 4px;
+      line-height: 30px;
+      text-align: center;
+      color: $textGray;
+      cursor: pointer;
+      &.on {
+        background: #969696;
+        color: #fff;
+      }
+    }
+    .recommend_box {
+      @include pa(48px, 0);
+      width: 250px;
+      padding-bottom:10px;
+      border: $borderC;
+      box-shadow: 0px -1px 9px rgba(0, 0, 0, 0.1);
+      &:before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-color: transparent transparent #fff transparent;
+        border-width: 10px;
+        border-style: solid;
+        @include pa(-20px, 10px);
+        z-index: 2;
+      }
+      &:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
+        border-width: 10px;
+        border-style: solid;
+        @include pa(-20px, 10px);
+        z-index: 1;
+      }
+      .title {
+        width: 90%;
+        margin: 10px auto;
+        @include flex(center, space-between, unset);
+        span {
+          color: $textGray2;
+          font-size: 14px;
+          cursor: pointer;
+        }
+      }
+      .recommendTip {
+        width: 90%;
+        margin: 0px auto;
+        @include flex(center, flex-start, unset);
+        flex-wrap: wrap;
+
+        span {
+          color: $textGray2;
+          font-size: 14px;
+          cursor: pointer;
+          border: $borderC;
+          padding: 2px 4px;
+          margin-right: 8px;
+          margin-top:10px;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
 }
 
-
-.slide-enter{
-    width: 110px !important;
+.slide-enter {
+  width: 110px !important;
 }
-.slide-enter-active{
-    transition: all 200ms ease-out;
-    width: 190px !important;
+.slide-enter-active {
+  transition: all 200ms ease-out;
+  width: 190px !important;
 }
-.slide-enter-done{
-    width: 190px !important;
+.slide-enter-done {
+  width: 190px !important;
 }
-.slide-exit{
-    width: 190px !important;
+.slide-exit {
+  width: 190px !important;
 }
-.slide-exit-active{
-    transition: all 200ms ease-out;
-    width: 110px !important;
+.slide-exit-active {
+  transition: all 200ms ease-out;
+  width: 110px !important;
 }
-.slide-exit-done{
-    width: 110px !important;
+.slide-exit-done {
+  width: 110px !important;
 }

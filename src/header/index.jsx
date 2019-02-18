@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 //用于组件与store连接
 import { connect } from "react-redux";
-import { actionCreators } from "./store"
+import { actionCreators } from "./store";
 import logo from "../assets/image/logo.png";
 import "../assets/icon/iconfont.css";
 import "../assets/sass/header/index.scss";
@@ -10,9 +10,10 @@ import { CSSTransition } from "react-transition-group";
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
   render() {
+    const { focus, searchFocus, searchBlur } = this.props; //es6解构赋值
     return (
       <Fragment>
         <div className="navBox">
@@ -25,18 +26,17 @@ class Header extends Component {
           <a className="navtext" href="/">
             下载App
           </a>
-          <CSSTransition in={this.props.focus} timeout={200} classNames="slide">
+          <CSSTransition in={focus} timeout={200} classNames="slide">
             <div className="searchbox">
               <input
                 placeholder="搜索"
                 type="text"
                 className="navSearch"
-                onFocus={this.props.searchFocus}
-                onBlur={this.props.searchBlur}
+                onFocus={searchFocus}
+                onBlur={searchBlur}
               />
-              <i className={`iconfont ${this.props.focus ? "on" : ""}`}>
-                &#xe602;
-              </i>
+              <i className={`iconfont ${focus ? "on" : ""}`}>&#xe602;</i>
+              {this.searchBox(focus)}
             </div>
           </CSSTransition>
           <div className="rightbox">
@@ -53,29 +53,54 @@ class Header extends Component {
       </Fragment>
     );
   }
-
+  searchBox = show => {
+    const { recommendList } = this.props;
+    if (show) {
+      return (
+        <div className="recommend_box">
+          <div className="title">
+            <span>热门搜索</span>
+            <span className="iconfont">&#xe60a;换一换</span>
+          </div>
+          <div className="recommendTip">
+            {recommendList.map((item, index) => {
+              return <span key={item + index}>{item}</span>;
+            })}
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
 }
 
 //将store数据映射到组件state, store指store数据
-const mapStateToProps = (store) =>{
+const mapStateToProps = store => {
   return {
-   //focus: store.header.get('focus') //immutable对象取属性 -----没使用redux-immutable时的取法
-   focus: store.get('header').get('focus')  //使用redux-immutable  
-   //focus: store.getIn(['header', 'focus'])  //immutable另外的api取法,与上一个结果相同
-  }
-}
+    //focus: store.header.focus, //未使用immutable库的取法
+    //focus: store.header.get('focus') //使用immutable库的取法, 没使用redux-immutable
+    focus: store.get("header").get("focus"), //使用redux-immutable 后reducer也变成了immutable对象
+    //focus: store.getIn(['header', 'focus'])  //immutable另外的api取法,与上一个结果相同
+
+    //recommendList:store.header.recommendList
+    recommendList: store.get("header").get("recommendList")
+  };
+};
 // 组件方法调用store.dispatch方法
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = dispatch => {
   return {
-    searchFocus (){
-      
-      dispatch(actionCreators.seach_focus())
+    searchFocus() {
+      dispatch(actionCreators.getRecommendlist());
+      dispatch(actionCreators.seach_focus());
     },
-    searchBlur: function(){
-      
-      dispatch(actionCreators.seach_blur())
+    searchBlur: function() {
+      dispatch(actionCreators.seach_blur());
     }
-  }
-}
+  };
+};
 //组件与store连接
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
