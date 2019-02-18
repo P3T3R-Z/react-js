@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 //用于组件与store连接
 import { connect } from "react-redux";
-
+import { actionCreators } from "./store"
 import logo from "../assets/image/logo.png";
 import "../assets/icon/iconfont.css";
 import "../assets/sass/header/index.scss";
@@ -66,16 +66,12 @@ const mapStateToProps = (store) =>{
 const mapDispatchToProps = (dispatch)=>{
   return {
     searchFocus (){
-      const action={
-        type:'search_focus'
-      }
-      dispatch(action)
+      
+      dispatch(actionCreators.seach_focus())
     },
     searchBlur: function(){
-      const action = {
-        type: 'search_blur'
-      }
-      dispatch(action)
+      
+      dispatch(actionCreators.seach_blur())
     }
   }
 }
