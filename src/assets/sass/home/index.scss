@@ -1,0 +1,155 @@
+@import "../params.scss";
+
+.home_container {
+  width: 960px;
+  margin: 0 auto;
+  @include flex(center, space-between, unset);
+  .bannerSwiper {
+    width: 66%;
+    margin: 30px 0 0 0;
+    border-radius: 5px;
+    overflow: hidden;
+    .swiper-wrapper {
+      width: 100%;
+
+      img {
+        width: 100%;
+        display: block;
+			}
+			
+    }
+  }
+	
+  .right_tab {
+		width: 30%;
+		margin-top: 30px;
+    @include flex(center, center, unset);
+		flex-direction: column;
+		a{
+			margin: 1px 0;
+			width:100%;
+			display: block;
+			img{
+				width: 100%;
+			}
+		}
+  }
+}
+
+
+
+
+.swiper-pagination-bullet{
+	background:#333;
+	width:20px;
+	height: 3px;
+	border-radius: unset;
+}
+.swiper-pagination-bullet-active{
+	background:#fff;
+}
+
+
+
+$bbtnWidth:30px;
+.swiper-button-next{
+	width:$bbtnWidth;
+	background: rgba(0,0,0,.2);
+	right:0;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	@include flex(center, center, unset);
+	span.iconfont{
+		color:#fff;
+		transform: rotate(90deg);
+		font-size: 18px;
+	}
+}
+.swiper-button-prev{
+	width:$bbtnWidth;
+	background: rgba(0,0,0,.2);
+	left:0;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	@include flex(center, center, unset);
+	span.iconfont{
+		color:#fff;
+		transform: rotate(-90deg);
+		font-size: 18px;
+	}
+}
+
+
+$contentW: 960px;
+$contentIW: 66%;
+$articleMtop: 20px;
+$articlePtop: 20px;
+$titleSize: 18px;
+$coverH: 100px;
+$coverW:150px;
+$leftW: 140px;
+$descSize: 14px;
+.hotArticle_box {
+  width: $contentW;
+  margin: 0 auto;
+  .article_item {
+    width: $contentIW;
+    border-top: $borderC;
+    margin-top: $articleMtop;
+    padding-top: $articlePtop;
+    @include flex(center, space-between, unset);
+    .left {
+      margin-right: 10px;
+      height: $leftW;
+      @include flex( flex-start, center, 1);
+      flex-direction: column;
+      @include pr;
+      .title {
+        font-weight: bold;
+        font-size: $titleSize;
+        @include textoverflow(2, 24px);
+      }
+      .desc {
+        margin:10px 0;
+        width: 100%;
+        color: $textGray;
+        font-size: $descSize;
+        line-height: 20px;
+      }
+      .otherinfo{
+          @include flex(center, flex-start, unset);
+          font-size: $descSize;
+          span{
+              margin-right:16px;
+              color: $textGray;
+              i.iconfont{
+                color: $textGray;
+                font-size: 12px;
+                margin-right: 3px;
+              }
+              &.views{
+                  color: $themeC;
+                  i.iconfont{
+                    color: $themeC;
+                    font-size: 16px;
+                    margin-right: 2px;
+                  }
+              }
+          }
+      }
+    }
+    .cover {
+      div {
+        height: $coverH;
+        width: $coverW;
+        overflow: hidden;
+        border-radius: $borderR;
+        background:{
+            size: cover;
+            position: center;
+            repeat: no-repeat;
+        }
+      }
+    }
+  }
+}

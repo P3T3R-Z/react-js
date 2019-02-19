@@ -1,8 +1,10 @@
+
 $themeC: #ea6f5a;
 $textGray: #969696;
 $textGray2: #999;
 $bgGray: #eee;
 $borderC: 1px solid #f0f0f0;
+$borderR: 5px;
 @mixin pr {
   position: relative;
 }
@@ -21,4 +23,14 @@ $borderC: 1px solid #f0f0f0;
   align-items: $a;
   justify-content: $b;
   flex: $c
+}
+
+@mixin textoverflow($line, $height){
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  width: 100%;
+  line-height:$height;
 }

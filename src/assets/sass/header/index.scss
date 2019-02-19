@@ -4,6 +4,8 @@ $navheight: 56px;
 .navBox {
   height: $navheight;
   border-bottom: $borderC;
+  min-width: 768px;
+  margin:0 auto;
   &:after {
     content: "";
     display: block;
@@ -13,7 +15,7 @@ $navheight: 56px;
     width: 100px;
     height: $navheight;
     float: left;
-    margin-right: 10px;
+
     img {
       height: 100%;
     }
@@ -21,7 +23,8 @@ $navheight: 56px;
   .rightbox {
     height: $navheight;
     line-height: $navheight;
-    float: right;
+    @include pa(0, unset);
+    right:0;
     @include flex(center, center, unset);
     a {
       margin-right: 20px;
@@ -55,118 +58,138 @@ $navheight: 56px;
       cursor: pointer;
     }
   }
-  a.navtext {
-    float: left;
-    height: $navheight;
-    padding: 0 20px;
-    font-size: 17px;
-    line-height: $navheight;
-    &.on {
-      &:hover {
-        background: unset;
-      }
-      color: $themeC;
+  .nav_center {
+    width:960px;
+    margin:0 auto;
+    &:after{
+      content:"";
+      display: block;
+      clear: both;
     }
-    &:hover {
-      background: $bgGray;
-    }
-  }
-  .searchbox {
-    @include pr;
-    float: left;
-    margin-left: 20px;
-    background: $bgGray;
-    border-radius: 19px;
-    height: 38px;
-    margin-top: 9px;
-    padding: 0 40px 0 20px;
-    width: 110px;
-    .navSearch {
-      outline: none;
-      border: none;
-      height: 38px;
-      line-height: 38px;
-      background: unset;
-      width: 100%;
-    }
-    i.iconfont {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      @include pa(4px, unset);
-      right: 4px;
-      line-height: 30px;
-      text-align: center;
-      color: $textGray;
-      cursor: pointer;
+    a.navtext {
+      float: left;
+      height: $navheight;
+      padding: 0 20px;
+      font-size: 17px;
+      line-height: $navheight;
       &.on {
-        background: #969696;
-        color: #fff;
+        &:hover {
+          background: unset;
+        }
+        color: $themeC;
+      }
+      &:hover {
+        background: $bgGray;
       }
     }
-    .recommend_box {
-      @include pa(48px, 0);
-      width: 250px;
-      padding-bottom: 10px;
-      border: $borderC;
-      box-shadow: 0px -1px 9px rgba(0, 0, 0, 0.1);
-      &:before {
-        content: "";
-        width: 0;
-        height: 0;
-        border-color: transparent transparent #fff transparent;
-        border-width: 10px;
-        border-style: solid;
-        @include pa(-20px, 10px);
-        z-index: 2;
+    .searchbox {
+      @include pr;
+      float: left;
+      margin-left: 20px;
+      background: $bgGray;
+      border-radius: 19px;
+      height: 38px;
+      margin-top: 9px;
+      padding: 0 40px 0 20px;
+      width: 110px;
+      .navSearch {
+        outline: none;
+        border: none;
+        height: 38px;
+        line-height: 38px;
+        background: unset;
+        width: 100%;
       }
-      &:after {
-        content: "";
-        width: 0;
-        height: 0;
-        border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
-        border-width: 10px;
-        border-style: solid;
-        @include pa(-20px, 10px);
-        z-index: 1;
-      }
-      .title {
-        width: 90%;
-        margin: 10px auto;
-        @include flex(center, space-between, unset);
-        span {
-          color: $textGray2;
-          font-size: 14px;
-          cursor: pointer;
-          &.iconfont {
-            display:inline-block;
-            transition: all 200ms ease-in;
-            transform-origin: center, center;
-            transform: rotate(0deg)
-          }
+      i.iconfont {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        @include pa(4px, unset);
+        right: 4px;
+        line-height: 30px;
+        text-align: center;
+        color: $textGray;
+        cursor: pointer;
+        &.on {
+          background: #969696;
+          color: #fff;
         }
       }
-      .recommendTip {
-        width: 90%;
-        margin: 0px auto;
-        @include flex(center, flex-start, unset);
-        flex-wrap: wrap;
+      .recommend_box {
+        z-index: 9;
+        background: #fff;
+        border-radius: 3px;
+        @include pa(48px, 0);
+        width: 250px;
+        padding-bottom: 10px;
+        border: $borderC;
+        box-shadow: 0px -1px 9px rgba(0, 0, 0, 0.1);
+        &:before {
+          content: "";
+          width: 0;
+          height: 0;
+          border-color: transparent transparent #fff transparent;
+          border-width: 10px;
+          border-style: solid;
+          @include pa(-20px, 10px);
+          z-index: 2;
+        }
+        &:after {
+          content: "";
+          width: 0;
+          height: 0;
+          border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
+          border-width: 10px;
+          border-style: solid;
+          @include pa(-20px, 10px);
+          z-index: 1;
+        }
+        .title {
+          width: 90%;
+          margin: 10px auto;
+          @include flex(center, space-between, unset);
+          span {
+            color: $textGray2;
+            font-size: 14px;
+            cursor: pointer;
+            &.iconfont {
+              display: inline-block;
+              transition: all 200ms ease-in;
+              transform-origin: center, center;
+              transform: rotate(0deg);
+            }
+          }
+        }
+        .recommendTip {
+          width: 90%;
+          margin: 0px auto;
+          @include flex(center, flex-start, unset);
+          flex-wrap: wrap;
 
-        span {
-          color: $textGray2;
-          font-size: 14px;
-          cursor: pointer;
-          border: $borderC;
-          padding: 2px 4px;
-          margin-right: 8px;
-          margin-top: 10px;
-          border-radius: 3px;
+          span {
+            color: $textGray2;
+            font-size: 14px;
+            cursor: pointer;
+            border: $borderC;
+            padding: 2px 4px;
+            margin-right: 8px;
+            margin-top: 10px;
+            border-radius: 3px;
+          }
         }
       }
     }
   }
 }
 
+@media screen and (min-width:1600px) {
+  .navBox .rightbox{
+    right: 80px
+  }
+  .navBox{
+    padding:0 80px
+  }
+}
 .slide-enter {
   width: 110px !important;
 }
