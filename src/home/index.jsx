@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Artcilelist from "./artcilelist"
 import { connect } from "react-redux";
 import * as actionCreators from "./store/actionCreators";
 import Swiper from "swiper/dist/js/swiper.js";
@@ -46,38 +47,7 @@ class Home extends Component {
             })}
           </div>
         </div>
-        <div className="hotArticle_box">
-          {articlelist.map((item, index) => {
-            return (
-              <div className="article_item" key={item.title + index}>
-                <div className="left">
-                  <a className="title" href="/">
-                    {item.title}
-                  </a>
-                  <div className="desc">{item.desc}</div>
-                  <div className="otherinfo">
-                    <span className="views">
-                      <i className="iconfont">&#xe749;</i>
-                      {item.views}
-                    </span>
-                    <span>{item.owner}</span>
-                    <span>
-                      <i className="iconfont">&#xe6f3;</i>
-                      {item.discuss}
-                    </span>
-                    <span>
-                      <i className="iconfont">&#xe640;</i>
-                      {item.like}
-                    </span>
-                  </div>
-                </div>
-                <a className="cover" href="/">
-                  <div style={{ backgroundImage: `url(${item.cover})` }} />
-                </a>
-              </div>
-            );
-          })}
-        </div>
+        <Artcilelist articlelist={articlelist}/>
       </Fragment>
     );
   }
@@ -99,6 +69,7 @@ class Home extends Component {
       </Fragment>
     );
   };
+
   componentDidMount() {
     new Swiper(".swiper-container", {
       loop: true,
@@ -117,6 +88,7 @@ class Home extends Component {
     });
     this.props.getHotArticle();
   }
+
 }
 
 const mapStateToProps = store => {
