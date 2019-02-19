@@ -17,7 +17,7 @@ const changeRecommendList=(data)=>{
     return {
         type: actionTypes.changeRecommendList,
         data: data,
-        pages: Math.ceil(data.length/10)
+        page: Math.ceil(data.length/10)
     }
 }
 

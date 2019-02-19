@@ -13,7 +13,7 @@ class Header extends Component {
     this.state = {};
   }
   render() {
-    const { focus, searchFocus, searchBlur } = this.props; //es6解构赋值
+    const { focus, searchFocus, searchBlur, recommendList } = this.props; //es6解构赋值
     return (
       <Fragment>
         <div className="navBox">
@@ -32,7 +32,9 @@ class Header extends Component {
                 placeholder="搜索"
                 type="text"
                 className="navSearch"
-                onFocus={searchFocus}
+                onFocus={() => {
+                  searchFocus(recommendList.toJS().length);
+                }}
                 onBlur={searchBlur}
               />
               <i className={`iconfont ${focus ? "on" : ""}`}>&#xe602;</i>
@@ -63,18 +65,19 @@ class Header extends Component {
       totalpage,
       changeListShow
     } = this.props;
-    
-    //recommendList为immutable对象
-    let jslist = recommendList.toJS();                               //immutable对象转js对象
-
-    let pagelist = [];
-    if(jslist.length){
-      for (let i = (page - 1) * 10; i < page * 10; i++) {
-        pagelist.push(<span key={jslist[i]}>{jslist[i]}</span>);
-      }
-    }
 
     if (show || mouseStatus) {
+      //recommendList为immutable对象
+      let jslist = recommendList.toJS(); //immutable对象转js对象
+
+      let pagelist = [];
+      if (jslist.length) {
+        for (let i = (page - 1) * 10; i < page * 10; i++) {
+          if (jslist[i]) {
+            pagelist.push(<span key={jslist[i]}>{jslist[i]}</span>);
+          }
+        }
+      }
       return (
         <div
           className="recommend_box"
@@ -83,13 +86,21 @@ class Header extends Component {
         >
           <div className="title">
             <span>热门搜索</span>
+
             <span
-              className="iconfont"
               onClick={() => {
-                changeListShow(page, totalpage);
+                changeListShow(page, totalpage, this.icondom);
               }}
             >
-              &#xe60a;换一换
+              <span
+                className="iconfont"
+                ref={icondom => {
+                  this.icondom = icondom;
+                }}
+              >
+                &#xe60a;
+              </span>
+              换一换
             </span>
           </div>
           <div className="recommendTip">{pagelist}</div>
@@ -118,8 +129,11 @@ const mapStateToProps = store => {
 // 组件方法调用store.dispatch方法
 const mapDispatchToProps = dispatch => {
   return {
-    searchFocus() {
-      dispatch(actionCreators.getRecommendlist());
+    searchFocus(listlength) {
+      if (listlength === 0) {
+        dispatch(actionCreators.getRecommendlist());
+      }
+
       dispatch(actionCreators.seach_focus());
     },
     searchBlur: function() {
@@ -131,14 +145,20 @@ const mapDispatchToProps = dispatch => {
     mouseLeave: function() {
       dispatch(actionCreators.mouseLeave());
     },
-    changeListShow: function(page, totalpage) {
-      //console.log(pages, totalpage)
-      if(page < totalpage){
-        dispatch(actionCreators.changeListShow(page+1));
+    changeListShow: function(page, totalpage, icon) {
+      console.log(icon.style.transform.match(/rotate\((-?[0-9]+)deg\)/i));
+      var origindegree = parseInt(
+        icon.style.transform === ""
+          ? 0
+          : icon.style.transform.match(/rotate\((-?[0-9]+)deg\)/i)[1]
+      );
+      origindegree -= 360;
+      icon.style.transform = `rotate(${origindegree}deg)`;
+      if (page < totalpage) {
+        dispatch(actionCreators.changeListShow(page + 1));
       } else {
         dispatch(actionCreators.changeListShow(1));
       }
-      
     }
   };
 };

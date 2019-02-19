@@ -23,7 +23,7 @@ export default (state = defaultState, action) => {
     case actionTypes.changeRecommendList:
       
       //返回的action.data数组是js对象,需要改成immutable对象赋值
-     // return state.set("recommendList", fromJS(action.data)).set('totalpage', action.pages);
+     // return state.set("recommendList", fromJS(action.data)).set('totalpage', action.page);
 
      //多次set
       return state.merge({
@@ -44,7 +44,7 @@ export default (state = defaultState, action) => {
     case actionTypes.mouseLeave:
       return state.set("mouseStatus", false);
     case actionTypes.changeListShow:
-      console.log(action)
+      
       return state.set("page", action.page)
     default:
       return state;
