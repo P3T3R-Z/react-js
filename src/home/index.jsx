@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from "react";
+import {Link} from "react-router-dom"
 import Artcilelist from "./artcilelist";
 import { connect } from "react-redux";
 import * as actionCreators from "./store/actionCreators";
@@ -7,6 +8,7 @@ import "swiper/dist/css/swiper.min.css";
 import "../assets/sass/home/index.scss";
 import {scrollAnimation} from "../assets/base"
 class Home extends PureComponent {
+  
   render() {
     const {
       bannerlist,
@@ -44,16 +46,16 @@ class Home extends PureComponent {
           <div className="right_tab">
             {tabNavlist.map(item => {
               return (
-                <a href={item.url} key={item.img}>
+                <Link to={item.url} key={item.img}>
                   <img src={item.img} alt="" />
-                </a>
+                </Link>
               );
             })}
           </div>
         </div>
         <Artcilelist
           articlelist={articlelist}
-          getMore={getMore.bind(this, page)}
+          getMore={()=>{getMore(page)}}
         />
         <div className="backtop" style={{display: backtopshow?'flex':'none'}} onClick={this.backtop}>
           <i className="iconfont">&#xe601;</i>

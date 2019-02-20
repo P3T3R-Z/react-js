@@ -1,0 +1,11 @@
+@import "../params.scss";
+
+$fs: unset !important;
+.detailContainer {
+  .ddcontent *{
+        padding-bottom: $fs;
+        height: $fs;
+        max-width: $fs;
+        max-height: $fs
+  }
+}

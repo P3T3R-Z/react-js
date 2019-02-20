@@ -15,23 +15,23 @@ const defaultState = fromJS({
   tabnav: [
     {
       img: tabpic1,
-      url: "/"
+      url: "/detail"
     },
     {
       img: tabpic2,
-      url: "/"
+      url: "/detail"
     },
     {
       img: tabpic3,
-      url: "/"
+      url: "/detail"
     },
     {
       img: tabpic4,
-      url: "/"
+      url: "/detail"
     },
     {
       img: tabpic5,
-      url: "/"
+      url: "/detail"
     }
   ],
   bannerMoveStatus: false,

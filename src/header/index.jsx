@@ -6,6 +6,8 @@ import logo from "../assets/image/logo.png";
 
 import "../assets/sass/header/index.scss";
 import { CSSTransition } from "react-transition-group";
+import {Link} from "react-router-dom"
+
 
 class Header extends PureComponent {
   constructor(props) {
@@ -17,16 +19,16 @@ class Header extends PureComponent {
     return (
       <Fragment>
         <div className="navBox">
-          <a className="logo" href="/">
+          <Link className="logo" to="/">
             <img src={logo} alt="" />
-          </a>
+          </Link>
           <div className="nav_center">
-            <a className="navtext on" href="/">
+            <Link className="navtext on" to="/">
               首页
-            </a>
-            <a className="navtext" href="/">
+            </Link>
+            <Link className="navtext" to="/">
               下载App
-            </a>
+            </Link>
             <CSSTransition in={focus} timeout={200} classNames="slide">
               <div className="searchbox">
                 <input
@@ -34,7 +36,7 @@ class Header extends PureComponent {
                   type="text"
                   className="navSearch"
                   onFocus={() => {
-                    searchFocus(recommendList.toJS().length);
+                    searchFocus(recommendList.toJS().length );
                   }}
                   onBlur={searchBlur}
                 />
@@ -46,12 +48,12 @@ class Header extends PureComponent {
           <div className="rightbox">
             <span className="iconfont changefont">&#xe600;</span>
             <div className="login">登录</div>
-            <a href="/" className="nocolor">
+            <Link to="/" className="nocolor">
               注册
-            </a>
-            <a href="/" className="hascolor">
+            </Link>
+            <Link to="/" className="hascolor">
               <span className="iconfont">&#xe603;</span>写文章
-            </a>
+            </Link>
           </div>
         </div>
       </Fragment>
@@ -114,7 +116,7 @@ class Header extends PureComponent {
   };
 }
 
-//将store数据映射到组件state, store指store数据
+//将store数据映射到组件state
 const mapStateToProps = store => {
   return {
     //focus: store.header.focus, //未使用immutable库的取法

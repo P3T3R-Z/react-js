@@ -1,5 +1,7 @@
 import React, { PureComponent, Fragment } from "react";
+import {Link} from "react-router-dom"
 class Artcilelist extends PureComponent {
+
   
   render() {
 
@@ -11,9 +13,9 @@ class Artcilelist extends PureComponent {
             return (
               <div className="article_item" key={item.title + index}>
                 <div className="left">
-                  <a className="title" href="/">
+                  <Link className="title" to="/detail">
                     {item.title}
-                  </a>
+                  </Link>
                   <div className="desc">{item.desc}</div>
                   <div className="otherinfo">
                     <span className="views">
@@ -31,9 +33,9 @@ class Artcilelist extends PureComponent {
                     </span>
                   </div>
                 </div>
-                <a className="cover" href="/">
+                <Link className="cover" to="/detail">
                   <div style={{ backgroundImage: `url(${item.cover})` }} />
-                </a>
+                </Link>
               </div>
             );
           })}
