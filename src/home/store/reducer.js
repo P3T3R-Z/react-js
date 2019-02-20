@@ -47,13 +47,15 @@ export default (state = defaultState, action) => {
     case actionTypes.bannerMoveOut:
       return state.set("bannerMoveStatus", false);
     case actionTypes.hotArticlelist:
-      const hasShowedlist = state.get("list").toJS();
-      action.data.forEach(item => {
-        hasShowedlist.push(item);
-      });
-
       return state.merge({
-        list: fromJS(hasShowedlist),
+        list: fromJS([...action.data])
+      });
+    case actionTypes.addarticlelist:
+      const preList = state.get('list').toJS()
+      preList.push(...action.data)
+      console.log(preList)
+      return state.merge({
+        list: fromJS(preList),
         page: action.page
       });
     case actionTypes.windowScroll:

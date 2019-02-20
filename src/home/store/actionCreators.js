@@ -13,22 +13,29 @@ export const bannerMoveOut = () => {
   };
 };
 
-const changeArticlelist = (data, page) => {
+const changeArticlelist = (data) => {
   return {
     type: actionTypes.hotArticlelist,
+    data
+  };
+};
+
+const addarticlelist = (data, page) => {
+  return {
+    type: actionTypes.addarticlelist,
     data,
     page
   };
 };
 
-export const hotArticlelist = page => {
+export const hotArticlelist = () => {
   return dispatch => {
     axios
-      .get("/api/hotArticle.json", { params: { page } })
+      .get("/api/hotArticle.json")
       .then(res => {
         //console.log(res);
         if (res.data.status === 1) {
-          dispatch(changeArticlelist(res.data.data, page));
+          dispatch(changeArticlelist(res.data.data));
         }
       })
       .catch(err => {
@@ -39,7 +46,17 @@ export const hotArticlelist = page => {
 
 export const getMorelist = page => {
   return dispatch => {
-    dispatch(hotArticlelist(page));
+    axios
+      .get("/api/hotArticle.json", { params: { page } })
+      .then(res => {
+        //console.log(res);
+        if (res.data.status === 1) {
+          dispatch(addarticlelist(res.data.data, page));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
 

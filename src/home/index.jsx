@@ -32,7 +32,7 @@ class Home extends PureComponent {
           >
             <div className="swiper-wrapper">
               {bannerlist.map((item, index) => (
-                <img key={item} className="swiper-slide" src={item} alt="" />
+                <img key={index} className="swiper-slide" src={item} alt="" />
               ))}
             </div>
             {/*banner左右按钮*/}
@@ -83,6 +83,7 @@ class Home extends PureComponent {
   };
 
   componentDidMount() {
+    
     new Swiper(".swiper-container", {
       loop: true,
       autoplay: {
@@ -98,7 +99,7 @@ class Home extends PureComponent {
         prevEl: ".swiper-button-prev"
       }
     });
-    this.props.getHotArticle(this.props.page);
+    this.props.getHotArticle();
 
     window.addEventListener('scroll', this.props.windowScroll)
   }
@@ -131,8 +132,8 @@ const mapDispatchToProps = dispatch => {
     bannerMoveOut() {
       dispatch(actionCreators.bannerMoveOut());
     },
-    getHotArticle(page) {
-      dispatch(actionCreators.hotArticlelist(page));
+    getHotArticle() {
+      dispatch(actionCreators.hotArticlelist());
     },
     getMore(page) {
       dispatch(actionCreators.getMorelist(page + 1));
