@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
-class Artcilelist extends Component {
+import React, { PureComponent, Fragment } from "react";
+class Artcilelist extends PureComponent {
   
   render() {
-    console.log(2);
-    const { articlelist } = this.props;
+
+    const { articlelist, getMore } = this.props;
     return (
       <Fragment>
         <div className="hotArticle_box">
@@ -37,6 +37,7 @@ class Artcilelist extends Component {
               </div>
             );
           })}
+          <div className="showMore" onClick={getMore}>查看更多</div>
         </div>
       </Fragment>
     );

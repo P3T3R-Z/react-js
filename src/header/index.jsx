@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 //用于组件与store连接
 import { connect } from "react-redux";
 import { actionCreators } from "./store";
@@ -7,7 +7,7 @@ import logo from "../assets/image/logo.png";
 import "../assets/sass/header/index.scss";
 import { CSSTransition } from "react-transition-group";
 
-class Header extends Component {
+class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

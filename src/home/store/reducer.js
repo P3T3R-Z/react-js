@@ -35,7 +35,9 @@ const defaultState = fromJS({
     }
   ],
   bannerMoveStatus: false,
-  list: []
+  list: [],
+  page: 1,
+  backtopshow: false
 });
 
 export default (state = defaultState, action) => {
@@ -45,7 +47,17 @@ export default (state = defaultState, action) => {
     case actionTypes.bannerMoveOut:
       return state.set("bannerMoveStatus", false);
     case actionTypes.hotArticlelist:
-      return state.set("list", fromJS(action.data)); //多层数据需要转immutable对象
+      const hasShowedlist = state.get("list").toJS();
+      action.data.forEach(item => {
+        hasShowedlist.push(item);
+      });
+
+      return state.merge({
+        list: fromJS(hasShowedlist),
+        page: action.page
+      });
+    case actionTypes.windowScroll:
+      return state.set('backtopshow', action.show)
     default:
       return state;
   }

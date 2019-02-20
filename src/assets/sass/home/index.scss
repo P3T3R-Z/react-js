@@ -152,4 +152,32 @@ $descSize: 14px;
       }
     }
   }
+  .showMore{
+    width: $contentIW;
+    margin: 0 auto;
+    background: $bgGray;
+    height: 40px;
+    border-radius: 20px;
+    text-align:center;
+    color: $textGray;
+    margin: 20px 0;
+    line-height: 40px;
+    cursor: pointer;
+  }
 }
+
+
+.backtop{
+  @include pf(unset, 90%);
+  bottom: 8%;
+  border: $borderC;
+ // border-color: #999;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  @include flex(center, center, unset);
+  i.iconfont{
+    font-size: 18px;
+  }
+}
+

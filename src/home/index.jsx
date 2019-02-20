@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from "react";
-import Artcilelist from "./artcilelist"
+import React, { PureComponent, Fragment } from "react";
+import Artcilelist from "./artcilelist";
 import { connect } from "react-redux";
 import * as actionCreators from "./store/actionCreators";
 import Swiper from "swiper/dist/js/swiper.js";
 import "swiper/dist/css/swiper.min.css";
 import "../assets/sass/home/index.scss";
-
-class Home extends Component {
+import {scrollAnimation} from "../assets/base"
+class Home extends PureComponent {
   render() {
     const {
       bannerlist,
@@ -14,8 +14,12 @@ class Home extends Component {
       bannerMoveIn,
       bannerMoveOut,
       bmStatus,
-      articlelist
+      articlelist,
+      getMore,
+      page,
+      backtopshow
     } = this.props;
+
     return (
       <Fragment>
         <div className="home_container">
@@ -47,7 +51,13 @@ class Home extends Component {
             })}
           </div>
         </div>
-        <Artcilelist articlelist={articlelist}/>
+        <Artcilelist
+          articlelist={articlelist}
+          getMore={getMore.bind(this, page)}
+        />
+        <div className="backtop" style={{display: backtopshow?'flex':'none'}} onClick={this.backtop}>
+          <i className="iconfont">&#xe601;</i>
+        </div>
       </Fragment>
     );
   }
@@ -86,9 +96,18 @@ class Home extends Component {
         prevEl: ".swiper-button-prev"
       }
     });
-    this.props.getHotArticle();
-  }
+    this.props.getHotArticle(this.props.page);
 
+    window.addEventListener('scroll', this.props.windowScroll)
+  }
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.props.windowScroll)
+  }
+  backtop = () =>{
+    
+    const currentY = document.documentElement.scrollTop || document.body.scrollTop
+    scrollAnimation(currentY, 0)
+  }
 }
 
 const mapStateToProps = store => {
@@ -96,7 +115,9 @@ const mapStateToProps = store => {
     bannerlist: store.getIn(["home", "banner"]),
     tabNavlist: store.getIn(["home", "tabnav"]).toJS(), //immutable对象多层数据需要转换为js对象
     bmStatus: store.getIn(["home", "bannerMoveStatus"]),
-    articlelist: store.getIn(["home", "list"]).toJS()
+    articlelist: store.getIn(["home", "list"]).toJS(),
+    page: store.getIn(["home", "page"]),
+    backtopshow: store.getIn(["home", "backtopshow"])
   };
 };
 
@@ -108,8 +129,19 @@ const mapDispatchToProps = dispatch => {
     bannerMoveOut() {
       dispatch(actionCreators.bannerMoveOut());
     },
-    getHotArticle() {
-      dispatch(actionCreators.hotArticlelist());
+    getHotArticle(page) {
+      dispatch(actionCreators.hotArticlelist(page));
+    },
+    getMore(page) {
+      dispatch(actionCreators.getMorelist(page + 1));
+    },
+    windowScroll(){
+      if(document.documentElement.scrollTop || document.body.scrollTop > 100){
+        dispatch(actionCreators.windowScroll(true))
+      } else {
+        dispatch(actionCreators.windowScroll(false))
+      }
+      
     }
   };
 };
