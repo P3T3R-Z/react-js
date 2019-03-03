@@ -2,10 +2,12 @@
 
 $fs: unset !important;
 .detailContainer {
-  .ddcontent *{
-        padding-bottom: $fs;
-        height: $fs;
-        max-width: $fs;
-        max-height: $fs
+  .ddcontent {
+    width:80%;
+    margin:0 auto;
+    img{
+      width:50%;
+      margin: 0 auto;
+    }
   }
 }

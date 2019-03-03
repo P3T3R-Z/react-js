@@ -5,17 +5,18 @@ import "../assets/sass/detail/index.scss"
 class Detail extends PureComponent {
   render() {
     
-    const { title, content ,getContent} = this.props;
-    getContent()
-    console.log(title)
+    const { title, content } = this.props;
     return (
       <div className="detailContainer">
-        <div>{title}</div>
+        <div style={{margin:'2rem auto',width:'80%',fontSize:'2rem'}}>{title}</div>
         <div dangerouslySetInnerHTML={{__html: content}} className="ddcontent"></div>
       </div>
     );
   }
-
+  componentDidMount(){
+    const {getContent} = this.props;
+    getContent()
+  }
 }
 
 const mapState = store => {
