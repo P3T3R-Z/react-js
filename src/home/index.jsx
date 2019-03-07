@@ -46,7 +46,7 @@ class Home extends PureComponent {
           <div className="right_tab">
             {tabNavlist.map(item => {
               return (
-                <Link to={item.url} key={item.img}>
+                <Link to={item.url} key={item.img} title="不带参数跳转">
                   <img src={item.img} alt="" />
                 </Link>
               );

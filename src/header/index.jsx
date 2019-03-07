@@ -6,8 +6,7 @@ import logo from "../assets/image/logo.png";
 
 import "../assets/sass/header/index.scss";
 import { CSSTransition } from "react-transition-group";
-import {Link} from "react-router-dom"
-
+import { Link, withRouter } from "react-router-dom";
 
 class Header extends PureComponent {
   constructor(props) {
@@ -23,12 +22,20 @@ class Header extends PureComponent {
             <img src={logo} alt="" />
           </Link>
           <div className="nav_center">
+            {/* 组件跳转 */}
             <Link className="navtext on" to="/">
               首页
             </Link>
-            <Link className="navtext" to="/">
+            <a
+              className="navtext"
+              href="javascript:void(0)"
+              onClick={() => {
+                this.props.history.push("/detail/1"); //函数式跳转
+              }}
+              title="函数式跳转带参"
+            >
               下载App
-            </Link>
+            </a>
             <CSSTransition in={focus} timeout={200} classNames="slide">
               <div className="searchbox">
                 <input
@@ -36,7 +43,7 @@ class Header extends PureComponent {
                   type="text"
                   className="navSearch"
                   onFocus={() => {
-                    searchFocus(recommendList.toJS().length );
+                    searchFocus(recommendList.toJS().length);
                   }}
                   onBlur={searchBlur}
                 />
@@ -150,7 +157,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.mouseLeave());
     },
     changeListShow: function(page, totalpage, icon) {
-      console.log(icon.style.transform.match(/rotate\((-?[0-9]+)deg\)/i));
+      //.log(icon.style.transform.match(/rotate\((-?[0-9]+)deg\)/i));
       var origindegree = parseInt(
         icon.style.transform === ""
           ? 0
@@ -170,4 +177,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Header);
+)(withRouter(Header)); //将react-router 的 history、location、match 三个对象传入props对象

@@ -13,7 +13,7 @@ class Artcilelist extends PureComponent {
             return (
               <div className="article_item" key={item.title + index}>
                 <div className="left">
-                  <Link className="title" to="/detail">
+                  <Link className="title" to="/detail/details" title="子路径跳转">
                     {item.title}
                   </Link>
                   <div className="desc">{item.desc}</div>
@@ -33,7 +33,7 @@ class Artcilelist extends PureComponent {
                     </span>
                   </div>
                 </div>
-                <Link className="cover" to="/detail">
+                <Link className="cover" to="/detail?id=1" title="get传值">
                   <div style={{ backgroundImage: `url(${item.cover})` }} />
                 </Link>
               </div>
